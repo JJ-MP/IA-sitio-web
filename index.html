@@ -9,12 +9,89 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
         }
+        
+        /* Animaciones personalizadas */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
+        }
+        
+        @keyframes slideInFromLeft {
+            0% { transform: translateX(-100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInFromRight {
+            0% { transform: translateX(100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes backgroundMove {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        /* Clases de animación */
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-glow { animation: glow 2s ease-in-out infinite; }
+        .animate-slide-left { animation: slideInFromLeft 0.8s ease-out; }
+        .animate-slide-right { animation: slideInFromRight 0.8s ease-out; }
+        .animate-fade-up { animation: fadeInUp 0.8s ease-out; }
+        .animate-pulse-custom { animation: pulse 2s ease-in-out infinite; }
+        .animate-rotate-slow { animation: rotate 20s linear infinite; }
+        
+        /* Fondo animado */
         .hero-bg {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://placehold.co/1200x800/000000/FFFFFF?text=IA');
-            background-size: cover;
-            background-position: center;
+            background: linear-gradient(
+                45deg,
+                #1e3a8a 0%,
+                #3b82f6 25%,
+                #1d4ed8 50%,
+                #2563eb 75%,
+                #1e40af 100%
+            );
+            background-size: 400% 400%;
+            animation: backgroundMove 8s ease infinite;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: backgroundMove 15s ease infinite reverse;
+        }
+        
         .logo-ia {
             font-size: 2rem;
             font-weight: bold;
@@ -27,32 +104,163 @@
             color: white;
             border-radius: 12px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+        
+        .logo-ia:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 25px -5px rgba(59, 130, 246, 0.5);
+        }
+        
+        /* Efectos de hover */
+        .card-hover {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .card-hover:hover::before {
+            left: 100%;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Botón con efectos */
+        .btn-magic {
+            background: linear-gradient(45deg, #3B82F6, #1D4ED8);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-magic::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-magic:hover::before {
+            left: 100%;
+        }
+        
+        .btn-magic:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        /* Partículas flotantes */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .particle:nth-child(1) { 
+            width: 10px; height: 10px; 
+            background: #3B82F6; 
+            left: 10%; top: 20%; 
+            animation-delay: 0s; 
+        }
+        .particle:nth-child(2) { 
+            width: 15px; height: 15px; 
+            background: #1D4ED8; 
+            left: 70%; top: 30%; 
+            animation-delay: 2s; 
+        }
+        .particle:nth-child(3) { 
+            width: 8px; height: 8px; 
+            background: #2563EB; 
+            left: 30%; top: 60%; 
+            animation-delay: 4s; 
+        }
+        .particle:nth-child(4) { 
+            width: 12px; height: 12px; 
+            background: #1E40AF; 
+            left: 80%; top: 70%; 
+            animation-delay: 1s; 
+        }
+        
+        /* Animación de aparición */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Texto con gradiente */
+        .gradient-text {
+            background: linear-gradient(45deg, #3B82F6, #1D4ED8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Iconos rotando */
+        .icon-rotate {
+            transition: transform 0.3s ease;
+        }
+        
+        .icon-rotate:hover {
+            transform: rotate(360deg);
         }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
 
     <!-- Header -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
+    <header class="bg-white shadow-md sticky top-0 z-50 animate-slide-left">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-2">
-                <div class="logo-ia">IA</div>
+                <div class="logo-ia animate-glow">IA</div>
                 <span class="text-xl font-bold text-gray-900">Guía de Aprendizaje</span>
             </div>
-            <a href="#download" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+            <a href="#download" class="btn-magic text-white font-bold py-2 px-4 rounded-lg">
                 Descargar Guía
             </a>
         </nav>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero-bg text-white">
-        <div class="container mx-auto px-6 py-24 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">Explorando la Inteligencia Artificial: Estrategias y Aplicaciones</h1>
-            <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
+    <section class="hero-bg text-white relative">
+        <!-- Partículas flotantes -->
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        
+        <div class="container mx-auto px-6 py-24 text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight animate-fade-up">
+                Explorando la Inteligencia Artificial: Estrategias y Aplicaciones
+            </h1>
+            <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto animate-fade-up" style="animation-delay: 0.2s;">
                 Una guía completa para comprender la evolución, aplicaciones y desafíos éticos de la IA, una de las tecnologías más transformadoras de nuestro tiempo.
             </p>
-            <a href="#download" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-gray-200 transition duration-300 text-lg">
+            <a href="#download" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-gray-200 transition duration-300 text-lg animate-pulse-custom">
                 ¡Obtén tu guía ahora!
             </a>
         </div>
@@ -61,23 +269,23 @@
     <!-- Introduction Section -->
     <section class="py-20 bg-white">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">¿Qué es la Inteligencia Artificial?</h2>
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold gradient-text">¿Qué es la Inteligencia Artificial?</h2>
                 <p class="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">
                     La IA se ha convertido en una de las tecnologías más importantes de la actualidad. Está transformando la forma en que vivimos, trabajamos y nos relacionamos con el mundo, impactando sectores desde la medicina hasta la educación.
                 </p>
             </div>
             <div class="flex flex-wrap -mx-4">
-                <div class="w-full md:w-1/2 px-4 mb-8 md:mb-0">
-                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg h-full">
+                <div class="w-full md:w-1/2 px-4 mb-8 md:mb-0 fade-in">
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg h-full card-hover">
                         <h3 class="text-2xl font-bold mb-3 text-blue-600">Impacto en la Educación</h3>
                         <p class="text-gray-700">
                             La IA está revolucionando la educación, personalizando el aprendizaje y cambiando el rol del docente. Los profesores evolucionan de ser fuentes de conocimiento a facilitadores del aprendizaje, enfocándose en el pensamiento crítico, la creatividad y las habilidades emocionales de los estudiantes.
                         </p>
                     </div>
                 </div>
-                <div class="w-full md:w-1/2 px-4">
-                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg h-full">
+                <div class="w-full md:w-1/2 px-4 fade-in">
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg h-full card-hover">
                         <h3 class="text-2xl font-bold mb-3 text-blue-600">Oportunidades y Desafíos</h3>
                         <p class="text-gray-700">
                             Si bien la IA ofrece enormes oportunidades, también presenta desafíos significativos. La privacidad de los datos y la necesidad de mantener la interacción humana en la educación son aspectos cruciales que debemos abordar para garantizar un desarrollo ético y responsable de esta tecnología.
@@ -91,7 +299,7 @@
     <!-- Content of the Guide -->
     <section class="py-20">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
+            <div class="text-center mb-12 fade-in">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900">¿Qué Aprenderás en esta Guía?</h2>
                 <p class="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">
                     Nuestra guía está estructurada en cuatro unidades fundamentales para darte un panorama completo de la Inteligencia Artificial.
@@ -99,32 +307,32 @@
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Unit 1 -->
-                <div class="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300">
-                    <div class="text-blue-600 mb-4">
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center card-hover fade-in">
+                    <div class="text-blue-600 mb-4 icon-rotate">
                         <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Unidad I: Introducción a la IA</h3>
                     <p class="text-gray-600">Comprende la definición y la fascinante evolución de la IA, desde sus inicios hasta su estado actual.</p>
                 </div>
                 <!-- Unit 2 -->
-                <div class="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300">
-                    <div class="text-blue-600 mb-4">
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center card-hover fade-in" style="animation-delay: 0.2s;">
+                    <div class="text-blue-600 mb-4 icon-rotate">
                         <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Unidad II: Aplicaciones de la IA</h3>
                     <p class="text-gray-600">Reconoce las diversas aplicaciones de la IA en sectores clave como salud, finanzas y entretenimiento.</p>
                 </div>
                 <!-- Unit 3 -->
-                <div class="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300">
-                    <div class="text-blue-600 mb-4">
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center card-hover fade-in" style="animation-delay: 0.4s;">
+                    <div class="text-blue-600 mb-4 icon-rotate">
                         <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V3m0 18v-3M5.636 5.636l1.414 1.414m10.05 10.05l1.414 1.414M5.636 18.364l1.414-1.414m10.05-10.05l1.414-1.414"></path></svg>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Unidad III: Estrategias de Implementación</h3>
                     <p class="text-gray-600">Evalúa las técnicas y estrategias necesarias para una correcta implementación de soluciones de IA.</p>
                 </div>
                 <!-- Unit 4 -->
-                <div class="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300">
-                    <div class="text-blue-600 mb-4">
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center card-hover fade-in" style="animation-delay: 0.6s;">
+                    <div class="text-blue-600 mb-4 icon-rotate">
                         <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6.364-3.636L5 12m14 0l-1.364 1.364M9 21h6l2 2H7l2-2zM5 12a7 7 0 1114 0h-2a5 5 0 10-10 0H5z"></path></svg>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Unidad IV: Desafíos y Ética</h3>
@@ -135,13 +343,14 @@
     </section>
 
     <!-- Download Section -->
-    <section id="download" class="py-20 bg-blue-700 text-white">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">¿Listo para Profundizar?</h2>
+    <section id="download" class="py-20 bg-blue-700 text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-blue-800"></div>
+        <div class="container mx-auto px-6 text-center relative z-10 fade-in">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 animate-float">¿Listo para Profundizar?</h2>
             <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
                 Descarga la guía de aprendizaje completa en formato PDF para acceder a todo el contenido, actividades y ejemplos detallados. ¡Es totalmente gratis!
             </p>
-            <button onclick="downloadFile()" class="bg-white text-blue-700 font-bold py-4 px-10 rounded-full hover:bg-gray-200 transition duration-300 text-xl shadow-lg">
+            <button onclick="downloadFile()" class="bg-white text-blue-700 font-bold py-4 px-10 rounded-full hover:bg-gray-200 transition duration-300 text-xl shadow-lg btn-magic">
                 <svg class="w-6 h-6 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                 Descargar la Guía Completa
             </button>
@@ -149,31 +358,81 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8">
+    <footer class="bg-gray-800 text-white py-8 animate-slide-right">
         <div class="container mx-auto px-6 text-center">
-            <p>&copy; 2024 Guía de Aprendizaje de IA. Creado para el PNF en Informática.</p>
-            <p class="text-sm text-gray-400 mt-2">Docente: Américo Cerrada | Estudiantes: Carlos Bustamante, David Rosales, Jose Contreras, Juan Nieto.</p>
+            <p>&copy; 2025 Guía de Aprendizaje de IA. Creado para el PNF en Informática.</p>
+            <p class="text-sm text-gray-400 mt-2">Docente: Américo Cerrada | 🐊 Estudiantes: Carlos Bustamante, David Rosales, Jose Contreras, Juan Nieto.</p>
             <p class="text-sm text-gray-400 mt-1">Universidad Politécnica Territorial de Mérida "Kléber Ramírez"</p>
         </div>
     </footer>
 
     <script>
-        // Esta es una función de marcador de posición para la descarga.
-        // En una aplicación real, enlazarías directamente a tu archivo.
+        // Función de descarga
         function downloadFile() {
-            // Reemplaza '#' con el enlace real a tu archivo PPTX o PDF.
-            // Por ejemplo: 'GUIA ORIGINAL DE APRNDIZAJE (23.pptx'
             const link = document.createElement('a');
-            link.href = 'https://drive.google.com/file/d/1lLkkS-6OaFfc6E_RSkxsPRhu5mWp9yxd/view?usp=sharing'; // URL de tu archivo
-            link.download = 'GUIA ORIGINAL DE APRNDIZAJE (23.pdf'; // Nombre sugerido para el archivo
+            link.href = 'https://drive.google.com/file/d/1lLkkS-6OaFfc6E_RSkxsPRhu5mWp9yxd/view?usp=sharing';
+            link.download = 'GUIA ORIGINAL DE APRNDIZAJE (23.pdf';
             
-            // Simula un clic en el enlace.
-            // En un entorno real, es mejor tener un enlace directo <a href="https://docs.google.com/presentation/d/1TcogrC1ve3DAYEyMrkRWegzbURhLVGqt/edit?usp=sharing&ouid=100687751779835254617&rtpof=true&sd=true">
             alert("Serás redirigido al sitio de la descarga.");
             document.body.appendChild(link);
-             link.click();
-             document.body.removeChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
+        
+        // Animaciones de scroll
+        function handleScrollAnimations() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        // Inicializar animaciones
+        window.addEventListener('scroll', handleScrollAnimations);
+        window.addEventListener('load', handleScrollAnimations);
+        
+        // Efecto de parallax suave
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            const heroSection = document.querySelector('.hero-bg');
+            if (heroSection) {
+                heroSection.style.transform = `translateY(${rate}px)`;
+            }
+        });
+        
+        // Animación de escritura para el título
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+        
+        // Inicializar efecto de escritura en el título principal
+        document.addEventListener('DOMContentLoaded', function() {
+            const title = document.querySelector('.hero-bg h1');
+            if (title) {
+                const originalText = title.textContent;
+                setTimeout(() => {
+                    typeWriter(title, originalText, 50);
+                }, 1000);
+            }
+        });
     </script>
 
 </body>
