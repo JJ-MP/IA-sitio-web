@@ -643,6 +643,121 @@
                 </div>
                 <div id="dragDropResults" class="mt-4 hidden"></div>
             </div>
+
+            <!-- Actividad 3: Juego de Predicciones -->
+            <div class="activity-card fade-in">
+                <h3 class="text-2xl font-bold text-blue-600 mb-6">🎯 Actividad 3: Juego de Predicciones</h3>
+                <p class="text-gray-700 mb-4">
+                    Mantén una actitud abierta y curiosa para explorar cómo las máquinas pueden aprender y entender el mundo a partir de datos.
+                </p>
+                
+                <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                    <h4 class="font-bold mb-2 text-blue-800">¿Cómo aprenden las máquinas?</h4>
+                    <p class="text-sm text-blue-700">
+                        Las máquinas aprenden gracias a técnicas llamadas aprendizaje automático. En lugar de programarles instrucciones específicas para cada tarea, se les enseña con muchos datos. Funcionan así:
+                    </p>
+                    <div class="mt-2 text-sm text-blue-700">
+                        <strong>Recolección de datos, entrenamiento del modelo, generalización, retroalimentación y mejora</strong>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border-2 border-blue-200 mb-6">
+                    <h4 class="text-xl font-bold text-gray-800 mb-4">📊 Datos de Entrenamiento: Temperaturas y Uso de Paraguas</h4>
+                    
+                    <div class="overflow-x-auto mb-4">
+                        <table class="w-full border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-gradient-to-r from-green-500 to-green-600 text-white">
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Temperaturas (°C)</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Uso paraguas sí/no</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2">25</td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        <select class="w-full p-2 border rounded" id="temp25">
+                                            <option value="">Selecciona...</option>
+                                            <option value="no">No</option>
+                                            <option value="si">Sí</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gray-300 px-4 py-2">18</td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        <select class="w-full p-2 border rounded" id="temp18">
+                                            <option value="">Selecciona...</option>
+                                            <option value="no">No</option>
+                                            <option value="si">Sí</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2">30</td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        <select class="w-full p-2 border rounded" id="temp30">
+                                            <option value="">Selecciona...</option>
+                                            <option value="no">No</option>
+                                            <option value="si">Sí</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gray-300 px-4 py-2">15</td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        <select class="w-full p-2 border rounded" id="temp15">
+                                            <option value="">Selecciona...</option>
+                                            <option value="no">No</option>
+                                            <option value="si">Sí</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2">22</td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        <select class="w-full p-2 border rounded" id="temp22">
+                                            <option value="">Selecciona...</option>
+                                            <option value="no">No</option>
+                                            <option value="si">Sí</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-lg mb-6">
+                    <h4 class="text-lg font-bold text-purple-800 mb-4">🔍 Instrucciones del Juego:</h4>
+                    <ol class="space-y-2 text-gray-700">
+                        <li class="flex items-start">
+                            <span class="text-purple-600 font-bold mr-2">1.</span>
+                            <span><strong>Analiza los datos:</strong> Observa la relación entre las temperaturas y el uso de paraguas</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-600 font-bold mr-2">2.</span>
+                            <span><strong>Crear reglas:</strong> Intenta formular una regla sencilla que prediga cuándo se usará paraguas</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-600 font-bold mr-2">3.</span>
+                            <span><strong>Prueba con otros datos:</strong> Aplica tu regla a nuevos casos</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-600 font-bold mr-2">4.</span>
+                            <span><strong>Compara las predicciones:</strong> Verifica qué tan acertadas fueron tus predicciones</span>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="text-center mb-4">
+                    <button class="btn-magic text-white font-bold py-3 px-6 rounded-lg" onclick="checkPredictions()">
+                        🎯 Verificar Predicciones
+                    </button>
+                </div>
+                
+                <div id="predictionResults" class="mt-4 hidden"></div>
+            </div>
         </div>
     </section>
 
@@ -831,6 +946,53 @@
             const result = document.getElementById('dragDropResults');
             result.classList.remove('hidden');
             result.innerHTML = `<div class="p-4 rounded-lg ${correct === total ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'} font-bold text-center">Respuestas correctas: ${correct} de ${total}</div>`;
+        }
+
+        function checkPredictions() {
+            const correctAnswers = {
+                temp25: "no",
+                temp18: "si",
+                temp30: "no",
+                temp15: "si",
+                temp22: "no"
+            };
+            let correct = 0;
+            let total = Object.keys(correctAnswers).length;
+            let feedback = '<div class="bg-blue-50 p-4 rounded-lg"><h4 class="font-bold mb-2 text-blue-800">Resultados del Juego de Predicciones:</h4>';
+            Object.keys(correctAnswers).forEach(tempId => {
+                const userAnswer = document.getElementById(tempId).value;
+                const correctAnswer = correctAnswers[tempId];
+                const temperature = tempId.replace('temp', '');
+                if (userAnswer === correctAnswer) {
+                    correct++;
+                    feedback += `<p class="text-green-600 text-sm">✓ ${temperature}°C: Correcto - ${correctAnswer === 'si' ? 'Sí' : 'No'} usar paraguas</p>`;
+                } else if (userAnswer === '') {
+                    feedback += `<p class="text-orange-600 text-sm">⚠️ ${temperature}°C: Sin respuesta - Respuesta correcta: ${correctAnswer === 'si' ? 'Sí' : 'No'}</p>`;
+                } else {
+                    feedback += `<p class="text-red-600 text-sm">✗ ${temperature}°C: Incorrecto - Respuesta correcta: ${correctAnswer === 'si' ? 'Sí' : 'No'}</p>`;
+                }
+            });
+            feedback += '<div class="mt-4 p-3 bg-yellow-50 rounded border-l-4 border-yellow-400">';
+            feedback += '<h5 class="font-bold text-yellow-800">💡 Patrón Detectado:</h5>';
+            feedback += '<p class="text-sm text-yellow-700">Las máquinas aprenden que a temperaturas bajas (≤20°C) es más probable usar paraguas, mientras que a temperaturas altas (>20°C) es menos probable. Este es un ejemplo simple de cómo la IA encuentra patrones en los datos.</p>';
+            feedback += '</div>';
+            feedback += '</div>';
+            const resultDiv = document.getElementById("predictionResults");
+            resultDiv.classList.remove("hidden");
+            let scoreColor = correct === total ? 'text-green-600' : correct >= total/2 ? 'text-orange-600' : 'text-red-600';
+            let scoreMessage = correct === total ? '¡Excelente! 🎉' : correct >= total/2 ? '¡Bien hecho! 👍' : '¡Sigue intentando! 💪';
+            resultDiv.innerHTML = `
+                <div class="text-center mb-4">
+                    <div class="text-2xl font-bold ${scoreColor}">${scoreMessage}</div>
+                    <div class="text-lg">Predicciones correctas: ${correct} de ${total}</div>
+                </div>
+                ${feedback}
+            `;
+            resultDiv.style.opacity = '0';
+            setTimeout(() => {
+                resultDiv.style.transition = 'opacity 0.5s ease';
+                resultDiv.style.opacity = '1';
+            }, 100);
         }
     </script>
 </body>
