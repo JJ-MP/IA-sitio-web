@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad II: Avances en la Inteligencia Artificial</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%233B82F6'/><text x='50' y='65' text-anchor='middle' fill='white' font-size='40' font-weight='bold'>IA</text></svg>" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Animaciones personalizadas */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
+        }
+        
+        @keyframes slideInFromLeft {
+            0% { transform: translateX(-100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInFromRight {
+            0% { transform: translateX(100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes backgroundMove {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        /* Clases de animación */
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-glow { animation: glow 2s ease-in-out infinite; }
+        .animate-slide-left { animation: slideInFromLeft 0.8s ease-out; }
+        .animate-slide-right { animation: slideInFromRight 0.8s ease-out; }
+        .animate-fade-up { animation: fadeInUp 0.8s ease-out; }
+        .animate-pulse-custom { animation: pulse 2s ease-in-out infinite; }
+        .animate-rotate-slow { animation: rotate 20s linear infinite; }
+        
+        /* Fondo animado */
+        .hero-bg {
+            background: linear-gradient(
+                45deg,
+                #1e3a8a 0%,
+                #3b82f6 25%,
+                #1d4ed8 50%,
+                #2563eb 75%,
+                #1e40af 100%
+            );
+            background-size: 400% 400%;
+            animation: backgroundMove 8s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: backgroundMove 15s ease infinite reverse;
+        }
+        
+        .logo-ia {
+            font-size: 2rem;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+        
+        .logo-ia:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 25px -5px rgba(59, 130, 246, 0.5);
+        }
+        
+        /* Efectos de hover */
+        .card-hover {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .card-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .card-hover:hover::before {
+            left: 100%;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Botón con efectos */
+        .btn-magic {
+            background: linear-gradient(45deg, #3B82F6, #1D4ED8);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-magic::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-magic:hover::before {
+            left: 100%;
+        }
+        
+        .btn-magic:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        /* Animación de aparición */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Texto con gradiente */
+        .gradient-text {
+            background: linear-gradient(45deg, #3B82F6, #1D4ED8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50 animate-slide-left">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="logo-ia animate-glow">IA</div>
+                <span class="text-xl font-bold text-gray-900">Unidad II</span>
+            </div>
+            <div class="flex space-x-4">
+                <a href="unit1.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg">Unidad I</a>
+                <a href="#actividades" class="btn-magic text-white font-bold py-2 px-4 rounded-lg">Actividades</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg text-white relative">
+        <div class="container mx-auto px-6 py-20 text-center relative z-10">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight animate-fade-up">
+                Unidad II: Avances en la Inteligencia Artificial
+            </h1>
+            <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto animate-fade-up" style="animation-delay: 0.2s;">
+                Explora los últimos desarrollos y aplicaciones de la inteligencia artificial en diversas industrias.
+            </p>
+            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 max-w-2xl mx-auto animate-fade-up" style="animation-delay: 0.4s;">
+                <h3 class="text-xl font-bold mb-4">Objetivos de Aprendizaje</h3>
+                <ul class="text-left space-y-2">
+                    <li>Comprender los avances recientes en IA.</li>
+                    <li>Identificar aplicaciones prácticas de la IA.</li>
+                    <li>Analizar el impacto de la IA en la sociedad.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Avances en IA -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">2.1 Avances Recientes en IA</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    La inteligencia artificial ha evolucionado rápidamente, con innovaciones en aprendizaje automático, procesamiento de lenguaje natural y visión por computadora.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Aplicaciones de la IA -->
+    <section class="py-20 bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">2.2 Aplicaciones de la IA</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    La IA se utiliza en diversas áreas, incluyendo salud, finanzas, transporte y entretenimiento.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-lg card-hover fade-in">
+                    <h3 class="text-xl font-bold mb-4">Salud</h3>
+                    <p>La IA ayuda en diagnósticos médicos y en el desarrollo de tratamientos personalizados.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-lg shadow-lg card-hover fade-in">
+                    <h3 class="text-xl font-bold mb-4">Finanzas</h3>
+                    <p>Las instituciones financieras utilizan IA para detectar fraudes y gestionar riesgos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impacto de la IA en la Sociedad -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">2.3 Impacto de la IA en la Sociedad</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    La IA plantea desafíos éticos y sociales que deben ser abordados para garantizar un futuro sostenible.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Actividades Interactivas -->
+    <section id="actividades" class="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Actividades Interactivas</h2>
+            </div>
+
+            <!-- Actividad 1: Preguntas sobre Avances -->
+            <div class="activity-card fade-in">
+                <h3 class="text-xl font-bold mb-4">Actividad 1: Preguntas sobre Avances</h3>
+                <p>Responde a las preguntas sobre los avances recientes en IA.</p>
+            </div>
+
+            <!-- Actividad 2: Estudio de Casos -->
+            <div class="activity-card fade-in">
+                <h3 class="text-xl font-bold mb-4">Actividad 2: Estudio de Casos</h3>
+                <p>Analiza diferentes casos de uso de la IA en la industria.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-600 text-sm">
+                © 2023 IA-sitio-web. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Efecto de aparición para las secciones
+        document.querySelectorAll('.fade-in').forEach((section, index) => {
+            setTimeout(() => {
+                section.classList.add('visible');
+            }, index * 300);
+        });
+    </script>
+</body>
+</html>
