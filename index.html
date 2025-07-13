@@ -241,12 +241,10 @@
                 <div class="logo-ia animate-glow">IA</div>
                 <span class="text-xl font-bold text-gray-900">Guía de Aprendizaje</span>
             </div>
-            <div class="flex items-center gap-2">
-                <a href="unit1.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg">Unidad I</a>
-                <a href="unit2.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg">Unidad II</a>
-                <a href="unit3.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg">Unidad III</a>
-                <a href="unit4.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg">Unidad IV</a>
-                <a href="#download" class="btn-magic text-white font-bold py-2 px-4 rounded-lg">
+            <div>
+                <a href="#download" 
+                   class="btn-magic text-white font-bold py-2 px-4 rounded-lg block w-full md:inline-block md:w-auto text-center"
+                   style="min-width:120px;max-width:100%;word-break:break-word;">
                     Descargar Guía
                 </a>
             </div>
@@ -358,16 +356,22 @@
             <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
                 Descarga la guía de aprendizaje completa en formato PDF para acceder a todo el contenido, actividades y ejemplos detallados. ¡Es totalmente gratis!
             </p>
-            <div class="flex flex-wrap justify-center gap-4 mb-8">
-                <a href="unit1.html" class="btn-magic text-white font-bold py-3 px-6 rounded-lg">Unidad I</a>
-                <a href="unit2.html" class="btn-magic text-white font-bold py-3 px-6 rounded-lg">Unidad II</a>
-                <a href="unit3.html" class="btn-magic text-white font-bold py-3 px-6 rounded-lg">Unidad III</a>
-                <a href="unit4.html" class="btn-magic text-white font-bold py-3 px-6 rounded-lg">Unidad IV</a>
+            <div class="flex flex-wrap justify-center gap-2 mb-6">
+                <a href="unit1.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm md:text-base">Unidad I</a>
+                <a href="unit2.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm md:text-base">Unidad II</a>
+                <a href="unit3.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm md:text-base">Unidad III</a>
+                <a href="unit4.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm md:text-base">Unidad IV</a>
             </div>
-            <button onclick="downloadFile()" class="bg-white text-white-700 font-bold py-4 px-10 rounded-full hover:bg-gray-200 transition duration-300 text-xl shadow-lg btn-magic">
-                <svg class="w-6 h-6 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                Descargar la Guía Completa
-            </button>
+            <div class="flex flex-col items-center justify-center">
+                <button 
+                    onclick="downloadFile()" 
+                    class="bg-white text-white-700 font-bold py-4 px-6 md:px-10 rounded-full hover:bg-gray-200 transition duration-300 text-lg md:text-xl shadow-lg btn-magic w-full max-w-xs md:max-w-md"
+                    style="word-break:break-word;"
+                >
+                    <svg class="w-6 h-6 inline-block mr-2 align-middle" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Descargar la Guía Completa
+                </button>
+            </div>
         </div>
     </section>
 
