@@ -1,288 +1,695 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Unidad II: Aplicaciones de la Inteligencia Artificial</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%233B82F6'/><text x='50' y='65' text-anchor='middle' fill='white' font-size='40' font-weight='bold'>IA</text></svg>" type="image/svg+xml"/>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad II: Aplicaciones de la Inteligencia Artificial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* Animaciones */
-    @keyframes float         { 0%,100%{transform:translateY(0);}50%{transform:translateY(-20px);} }
-    @keyframes glow          { 0%,100%{box-shadow:0 0 20px rgba(59,130,246,0.3);}50%{box-shadow:0 0 40px rgba(59,130,246,0.6);} }
-    @keyframes slideInFromLeft { 0%{transform:translateX(-100%);opacity:0;}100%{transform:translateX(0);opacity:1;} }
-    @keyframes fadeInUp      { 0%{transform:translateY(50px);opacity:0;}100%{transform:translateY(0);opacity:1;} }
-    @keyframes backgroundMove{ 0%{background-position:0% 0%;}50%{background-position:100% 100%;}100%{background-position:0% 0%;} }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
 
-    /* Helpers de animación */
-    .animate-float       { animation: float 3s ease-in-out infinite; }
-    .animate-glow        { animation: glow 2s ease-in-out infinite; }
-    .animate-slide-left  { animation: slideInFromLeft .8s ease-out; }
-    .animate-fade-up     { animation: fadeInUp .8s ease-out; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-    /* Fondo hero */
-    .hero-bg {
-      background: linear-gradient(
-        45deg,
-        #1e3a8a 0%,
-        #3b82f6 25%,
-        #1d4ed8 50%,
-        #2563eb 75%,
-        #1e40af 100%
-      );
-      background-size: 400% 400%;
-      animation: backgroundMove 8s ease infinite;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-bg::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                  radial-gradient(circle at 40% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
-      animation: backgroundMove 15s ease infinite reverse;
-      z-index: 0;
-    }
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
 
-    /* Partículas */
-    .particle {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.3;
-      animation: float 6s ease-in-out infinite;
-      z-index: 1;
-    }
-    .particle:nth-child(2){ width:10px; height:10px; background:#3B82F6; left:10%; top:20%; animation-delay:0;}
-    .particle:nth-child(3){ width:15px; height:15px; background:#1D4ED8; left:70%; top:30%; animation-delay:2s;}
-    .particle:nth-child(4){ width:8px;  height:8px;  background:#2563EB; left:30%; top:60%; animation-delay:4s;}
-    .particle:nth-child(5){ width:12px; height:12px; background:#1E40AF; left:80%; top:70%; animation-delay:1s;}
+        h1 {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
 
-    /* Tarjetas hover */
-    .card-hover {
-      transition: all .3s ease;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-    .card-hover::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-      transition: left .5s ease;
-    }
-    .card-hover:hover::before { left: 100%; }
-    .card-hover:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
+        .subtitle {
+            color: #e0e6ff;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
 
-    /* Botón mágico */
-    .btn-magic {
-      background: linear-gradient(45deg, #3B82F6, #1D4ED8);
-      position: relative; overflow: hidden;
-      transition: all .3s ease;
-    }
-    .btn-magic::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left .5s ease;
-    }
-    .btn-magic:hover::before { left: 100%; }
-    .btn-magic:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(59,130,246,0.4);
-    }
+        .objective {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border-left: 5px solid #667eea;
+        }
 
-    /* Logo IA */
-    .logo-ia {
-      font-size: 2rem; font-weight: bold;
-      width: 60px; height: 60px;
-      background: linear-gradient(135deg,#3B82F6 0%,#1D4ED8 100%);
-      color: white; border-radius: 12px;
-      display: inline-flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: all .3s ease;
-    }
-    .logo-ia:hover {
-      transform: scale(1.1) rotate(5deg);
-      box-shadow: 0 8px 25px rgba(59,130,246,0.5);
-    }
+        .objective h2 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
 
-    /* Fade‐in sections */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all .8s ease-out;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+        .objective p {
+            color: #555;
+            font-size: 1.1rem;
+        }
 
-    /* Texto con degradado */
-    .gradient-text {
-      background: linear-gradient(45deg,#3B82F6,#1D4ED8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-  </style>
+        .saberes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .saber-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .saber-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+        }
+
+        .saber-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .saber-card p {
+            color: #555;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .saber-type {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .application-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .application-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+        }
+
+        .card-header h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-header .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .application-item {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .application-item h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .application-item p {
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .exercise-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .exercise-section h3 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .question {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .question p {
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .question textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 0.8rem;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            resize: vertical;
+        }
+
+        .question input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        .activity-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .activity-section h3 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .materials-box {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .materials-box h4 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .materials-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .material-item {
+            background: #667eea;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .steps-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+        }
+
+        .steps-container h4 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .step {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .models-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .models-section h3 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .model-card {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .model-card h4 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .teamwork-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .teamwork-section h3 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .quote-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin: 2rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .quote-box p {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .quote-box span {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .role-play {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .role-play h4 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .role {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .role h5 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .saberes-grid,
+            .applications-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .materials-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .roles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body>
+    <div class="container">
+        <header>
+            <h1>Unidad II: Aplicaciones de la Inteligencia Artificial</h1>
+            <p class="subtitle">Descubriendo el impacto de la IA en diferentes sectores</p>
+        </header>
 
-  <!-- Header -->
-  <header class="bg-white shadow-md sticky top-0 z-50 animate-slide-left">
-    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="flex items-center space-x-2">
-        <div class="logo-ia animate-glow">IA</div>
-        <span class="text-xl font-bold text-gray-900">Unidad II</span>
-      </div>
-      <a href="unit3.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg">
-        Siguiente Unidad →
-      </a>
-    </nav>
-  </header>
+        <div class="objective">
+            <h2>🎯 Objetivo de la Unidad</h2>
+            <p>Reconocer las diversas aplicaciones de la IA en diferentes sectores, comprender el proceso de preparación de datos, desarrollar habilidades de integración y fomentar el trabajo colaborativo entre humanos y sistemas de IA.</p>
+        </div>
 
-  <!-- Hero Section -->
-  <section class="hero-bg text-white relative">
-    <div class="absolute inset-0 bg-black bg-opacity-30 z-0"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
+        <div class="saberes-grid">
+            <div class="saber-card">
+                <div class="saber-type">Conceptual</div>
+                <h3>2.1 Ejemplos de IA</h3>
+                <p>Conocimiento sobre usos específicos de la IA en salud, finanzas y entretenimiento con ejemplos prácticos y casos reales.</p>
+            </div>
+            <div class="saber-card">
+                <div class="saber-type">Procedimental</div>
+                <h3>2.2 Preparación de Datos</h3>
+                <p>Habilidades para recopilar y preparar datos relevantes para el entrenamiento de modelos de IA de forma efectiva.</p>
+            </div>
+            <div class="saber-card">
+                <div class="saber-type">Actitudinal</div>
+                <h3>2.3 Integración de IA</h3>
+                <p>Capacidad para integrar modelos de IA en aplicaciones o sistemas existentes de manera práctica.</p>
+            </div>
+            <div class="saber-card">
+                <div class="saber-type">Actitudinal</div>
+                <h3>2.4 Trabajo en Equipo</h3>
+                <p>Desarrollo de habilidades colaborativas entre humanos y sistemas de IA para maximizar resultados.</p>
+            </div>
+        </div>
 
-    <div class="container mx-auto px-6 py-20 text-center relative z-10">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight animate-fade-up">
-        Unidad II: Aplicaciones de la Inteligencia Artificial
-      </h1>
-      <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto animate-fade-up" style="animation-delay:0.2s;">
-        Reconoce las diversas aplicaciones de la IA en sectores clave como salud, finanzas y entretenimiento.
-      </p>
-      <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 max-w-2xl mx-auto animate-fade-up" style="animation-delay:0.4s;">
-        <h3 class="text-xl font-bold mb-4">Objetivos de Aprendizaje</h3>
-        <ul class="text-left space-y-2">
-          <li class="flex items-start"><span class="text-yellow-300 mr-2">✓</span> IA en medicina, finanzas y entretenimiento</li>
-          <li class="flex items-start"><span class="text-yellow-300 mr-2">✓</span> Impacto de la IA en la vida cotidiana</li>
-          <li class="flex items-start"><span class="text-yellow-300 mr-2">✓</span> Ejemplos prácticos en diferentes sectores</li>
-        </ul>
-      </div>
+        <div class="applications-grid">
+            <div class="application-card">
+                <div class="card-header">
+                    <div class="icon">🏥</div>
+                    <h3>Medicina</h3>
+                </div>
+                <div class="card-content">
+                    <div class="application-item">
+                        <h4>Diagnóstico de Enfermedades</h4>
+                        <p>La IA ayuda a los médicos a diagnosticar enfermedades de forma más precisa y rápida mediante el análisis de imágenes médicas y datos de pacientes.</p>
+                    </div>
+                    <div class="application-item">
+                        <h4>Desarrollo de Medicamentos</h4>
+                        <p>Los investigadores utilizan IA para desarrollar nuevos medicamentos y tratamientos de forma más rápida y eficiente.</p>
+                    </div>
+                    <div class="application-item">
+                        <h4>Cirugía Robótica</h4>
+                        <p>La IA se utiliza en cirugía robótica para mejorar la precisión y seguridad de las intervenciones quirúrgicas.</p>
+                    </div>
+                    <div class="application-item">
+                        <h4>Atención al Paciente</h4>
+                        <p>Permite proporcionar una atención al paciente más personalizada y eficiente.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="application-card">
+                <div class="card-header">
+                    <div class="icon">💰</div>
+                    <h3>Finanzas</h3>
+                </div>
+                <div class="card-content">
+                    <div class="application-item">
+                        <h4>Detección de Fraude</h4>
+                        <p>La IA detecta fraude financiero mediante el análisis de grandes cantidades de datos de transacciones.</p>
+                    </div>
+                    <div class="application-item">
+                        <h4>Predicción del Mercado</h4>
+                        <p>Se utiliza para predecir el comportamiento del mercado de valores y ayudar a los inversores.</p>
+                    </div>
+                    <div class="application-item">
+                        <h4>Gestión de Riesgos</h4>
+                        <p>Gestiona riesgos financieros mediante análisis de datos e identificación de patrones.</p>
+                    </div>
+                    <div class="application-item">
+                        <h4>Asesoramiento Financiero</h4>
+                        <p>Proporciona asesoramiento financiero personalizado a los clientes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="application-card">
+                <div class="card-header">
+                    <div class="icon">🎬</div>
+                    <h3>Entretenimiento</h3>
+                </div>
+                <div class="card-content">
+                    <div class="application-item">
+                        <h4>Recomendaciones Personalizadas</h4>
+                        <p>Netflix utiliza IA para analizar hábitos de visualización y sugerir contenido relevante.</p>
+                    </div>
+                    <div class="application-item">
+                        <h4>Análisis de Comportamiento</h4>
+                        <p>Estudia qué ves, cuándo lo ves y cuánto tiempo dedicas para optimizar la experiencia.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="application-card">
+                <div class="card-header">
+                    <div class="icon">🎓</div>
+                    <h3>Educación</h3>
+                </div>
+                <div class="card-content">
+                    <div class="application-item">
+                        <h4>Personalización del Aprendizaje</h4>
+                        <p>Adapta el contenido educativo a las necesidades individuales de cada estudiante.</p>
+                    </div>
+                    <div class="application-item">
+                        <h4>Detección de Dificultades</h4>
+                        <p>Identifica problemas de aprendizaje tempranamente para intervenir de manera oportuna.</p>
+                    </div>
+                    <div class="application-item">
+                        <h4>Automatización Administrativa</h4>
+                        <p>Reduce tareas administrativas para que los educadores se enfoquen en la enseñanza.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise-section">
+            <h3>🤔 Actividad de Reflexión</h3>
+            <div class="question">
+                <p><strong>Menciona tres campos o industrias donde crees que la IA ya está siendo utilizada de manera importante:</strong></p>
+                <input type="text" placeholder="Campo 1, Campo 2, Campo 3">
+            </div>
+            <div class="question">
+                <p><strong>Describe cómo la IA se utiliza para mejorar el diagnóstico de enfermedades y explica un beneficio clave:</strong></p>
+                <textarea placeholder="Escribe tu respuesta aquí..."></textarea>
+            </div>
+            <div class="question">
+                <p><strong>Explica cómo la IA ayuda a prevenir el fraude en el sector financiero y menciona otra aplicación importante:</strong></p>
+                <textarea placeholder="Escribe tu respuesta aquí..."></textarea>
+            </div>
+            <div class="question">
+                <p><strong>Identifica al menos dos formas en que la IA se utiliza para personalizar la experiencia del usuario en plataformas de streaming:</strong></p>
+                <textarea placeholder="Escribe tu respuesta aquí..."></textarea>
+            </div>
+        </div>
+
+        <div class="activity-section">
+            <h3>🎨 2.2 Actividad Práctica: "Preparamos Datos para Entrenar Nuestra IA"</h3>
+            
+            <div class="materials-box">
+                <h4>📋 Materiales Necesarios:</h4>
+                <div class="materials-list">
+                    <div class="material-item">Revistas viejas</div>
+                    <div class="material-item">Tijeras</div>
+                    <div class="material-item">Papelotes</div>
+                    <div class="material-item">Pegamento</div>
+                    <div class="material-item">Tarjetas con etiquetas</div>
+                </div>
+            </div>
+
+            <div class="steps-container">
+                <h4>🔄 Proceso de Preparación de Datos:</h4>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Recopilación de Datos:</strong> La preparación de datos es crucial para desarrollar modelos de IA eficientes. Sin datos de calidad, los modelos pueden producir resultados inexactos.
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Limpieza de Datos:</strong> Eliminar ruido, inconsistencias, datos faltantes y valores atípicos para mejorar la calidad del dataset.
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Transformación:</strong> Normalización, codificación de variables categóricas y selección de características relevantes.
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Validación:</strong> Verificar que los datos sean representativos y de alta calidad antes del entrenamiento.
+                </div>
+            </div>
+
+            <div class="steps-container">
+                <h4>🎯 Instrucciones de la Actividad:</h4>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Recopilar datos (imágenes):</strong> Recortar fotos de revistas (animales, coches, frutas, etc.)
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Clasificar y etiquetar:</strong> Pegar las imágenes en papelotes según categorías (ej.: "Perros", "Gatos")
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Discusión:</strong> "¿Esta imagen de un lobo va en 'Perros'? ¿Por qué no?" (Introducir el concepto de datos incorrectos)
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Limpieza de datos:</strong> Eliminar fotos mal recortadas o repetidas
+                </div>
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>"Entrenamiento" simulado:</strong> Un participante hace de "IA" y debe adivinar la categoría basándose en descripciones
+                </div>
+            </div>
+        </div>
+
+        <div class="models-section">
+            <h3>🧠 2.3 Modelos de IA y Su Integración</h3>
+            
+            <div class="model-card">
+                <h4>Redes Neuronales Profundas (Deep Neural Networks)</h4>
+                <p>Modelo de aprendizaje profundo basado en el cerebro humano, compuesto por capas de nodos interconectadas. La parte "profunda" se refiere a múltiples capas que permiten aprender patrones sofisticados.</p>
+            </div>
+            
+            <div class="model-card">
+                <h4>Regresión Logística</h4>
+                <p>Modelo simple y versátil utilizado para aplicaciones de clasificación binaria. Su facilidad de uso lo convierte en una elección popular en salud, marketing y finanzas.</p>
+            </div>
+            
+            <div class="model-card">
+                <h4>Regresión Lineal</h4>
+                <p>Modelo de aprendizaje automático que determina la relación lineal entre características independientes y una variable dependiente.</p>
+            </div>
+
+            <div class="activity-section">
+                <h4>🔧 Integración de IA en Sistemas Existentes</h4>
+                <p><strong>Concepto clave:</strong> "Las IA no trabajan solas. ¡Se 'integran' en apps o robots como un superpoder nuevo!"</p>
+                
+                <div class="steps-container">
+                    <div class="step">
+                        <span class="step-number">💡</span>
+                        <strong>Ejemplo:</strong> Un coche de juguete sin IA solo avanza recto. Pero si le ponemos un 'cerebro' (IA), ¡esquiva obstáculos solo!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="teamwork-section">
+            <h3>🤝 2.4 Trabajo en Equipo: Humanos + IA</h3>
+            
+            <div class="quote-box">
+                <p>"La IA es como un compañero de equipo con súper poderes: puede hacer cálculos rápidos o recordar millones de datos, pero necesita humanos para darle sentido a la información y tomar decisiones importantes."</p>
+            </div>
+
+            <div class="model-card">
+                <h4>Ejemplo Cotidiano: Traductores de Google</h4>
+                <p><strong>IA + Humanos:</strong> La IA traduce rápidamente, pero un humano corrige errores o elige la palabra más natural y contextualmente apropiada.</p>
+            </div>
+
+            <div class="role-play">
+                <h4>🎭 Actividad: "El Hospital del Futuro" (Juego de Roles)</h4>
+                <div class="roles-grid">
+                    <div class="role">
+                        <h5>👨‍⚕️ Médicos Humanos</h5>
+                        <p>Diagnostican pacientes con síntomas escritos en tarjetas</p>
+                    </div>
+                    <div class="role">
+                        <h5>🤖 Sistema de IA</h5>
+                        <p>Usa apps de diagnóstico para sugerir posibles enfermedades</p>
+                    </div>
+                </div>
+                
+                <div class="steps-container">
+                    <h4>🤔 Reflexión:</h4>
+                    <div class="step">
+                        <span class="step-number">?</span>
+                        <strong>Preguntas:</strong> "¿En qué se equivocó la IA? ¿Cuándo fue útil? ¿Cómo se complementaron humanos y IA?"
+                    </div>
+                </div>
+            </div>
+
+            <div class="quote-box">
+                <p>"La IA es como una linterna en la oscuridad: nos ayuda a ver mejor, pero somos nosotros quienes decidimos hacia dónde caminar."</p>
+                <span>- Reflexión sobre la colaboración Humano-IA</span>
+            </div>
+        </div>
     </div>
-  </section>
-
-  <!-- 2.1 Aplicaciones de la IA -->
-  <section class="py-20 bg-white">
-    <div class="container mx-auto px-6">
-      <div class="text-center mb-12 fade-in">
-        <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4" style="color: black;">
-  2.1 Aplicaciones de la IA
-</h2>
-
-        <p class="text-lg text-gray-800 max-w-3xl mx-auto">
-          Descubre cómo la inteligencia artificial está revolucionando diferentes áreas.
-        </p>
-      </div>
-
-      <!-- Grid 2x2 -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Medicina -->
-        <div class="bg-white p-8 rounded-lg shadow-lg card-hover fade-in">
-          <div class="text-center mb-6">
-            <div class="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-4">
-              <span class="text-3xl">🏥</span>
-            </div>
-            <h3 class="text-2xl font-bold text-blue-600 mb-4">IA en Medicina</h3>
-          </div>
-          <ul class="space-y-3 text-gray-700">
-            <li class="flex items-start"><span class="text-blue-500 mr-2">•</span> Diagnóstico más preciso y rápido con análisis de imágenes</li>
-            <li class="flex items-start"><span class="text-blue-500 mr-2">•</span> Desarrollo ágil de nuevos medicamentos</li>
-            <li class="flex items-start"><span class="text-blue-500 mr-2">•</span> Cirugía robótica de alta precisión</li>
-            <li class="flex items-start"><span class="text-blue-500 mr-2">•</span> Atención al paciente personalizada</li>
-          </ul>
-        </div>
-
-        <!-- Finanzas -->
-        <div class="bg-white p-8 rounded-lg shadow-lg card-hover fade-in">
-          <div class="text-center mb-6">
-            <div class="w-16 h-16 mx-auto bg-yellow-100 rounded-full flex items-center justify-center mb-4">
-              <span class="text-3xl">💰</span>
-            </div>
-            <h3 class="text-2xl font-bold text-yellow-600 mb-4">IA en Finanzas</h3>
-          </div>
-          <ul class="space-y-3 text-gray-700">
-            <li class="flex items-start"><span class="text-yellow-500 mr-2">•</span> Detección de fraude en tiempo real</li>
-            <li class="flex items-start"><span class="text-yellow-500 mr-2">•</span> Predicción del mercado de valores</li>
-            <li class="flex items-start"><span class="text-yellow-500 mr-2">•</span> Gestión avanzada de riesgos</li>
-            <li class="flex items-start"><span class="text-yellow-500 mr-2">•</span> Asesoramiento financiero personalizado</li>
-          </ul>
-        </div>
-
-        <!-- Entretenimiento -->
-        <div class="bg-white p-8 rounded-lg shadow-lg card-hover fade-in">
-          <div class="text-center mb-6">
-            <div class="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-4">
-              <span class="text-3xl">🎬</span>
-            </div>
-            <h3 class="text-2xl font-bold text-purple-600 mb-4">IA en Entretenimiento</h3>
-          </div>
-          <ul class="space-y-3 text-gray-700">
-            <li class="flex items-start"><span class="text-purple-500 mr-2">•</span> Recomendaciones personalizadas (Netflix)</li>
-            <li class="flex items-start"><span class="text-purple-500 mr-2">•</span> Generación de música, guiones y efectos</li>
-            <li class="flex items-start"><span class="text-purple-500 mr-2">•</span> Videojuegos con NPCs adaptativos</li>
-            <li class="flex items-start"><span class="text-purple-500 mr-2">•</span> Realidad virtual inmersiva</li>
-          </ul>
-        </div>
-
-        <!-- Educación -->
-        <div class="bg-white p-8 rounded-lg shadow-lg card-hover fade-in">
-          <div class="text-center mb-6">
-            <div class="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-4">
-              <span class="text-3xl">📚</span>
-            </div>
-            <h3 class="text-2xl font-bold text-green-600 mb-4">IA en Educación</h3>
-          </div>
-          <ul class="space-y-3 text-gray-700">
-            <li class="flex items-start"><span class="text-green-500 mr-2">•</span> Personalización del ritmo de aprendizaje</li>
-            <li class="flex items-start"><span class="text-green-500 mr-2">•</span> Detección temprana de dificultades</li>
-            <li class="flex items-start"><span class="text-green-500 mr-2">•</span> Automatización de tareas administrativas</li>
-            <li class="flex items-start"><span class="text-green-500 mr-2">•</span> Mejora continua de resultados</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-white py-8">
-    <div class="container mx-auto px-6">
-      <div class="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-2 mb-4">
-        <a href="index.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm sm:w-auto w-full text-center">Inicio</a>
-        <a href="unit1.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm sm:w-auto w-full text-center">Unidad I</a>
-        <a href="unit2.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm sm:w-auto w-full text-center">Unidad II</a>
-        <a href="unit3.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm sm:w-auto w-full text-center">Unidad III</a>
-        <a href="unit4.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm sm:w-auto w-full text-center">Unidad IV</a>
-      </div>
-      <p class="text-gray-600 text-sm text-center">&copy; 2025 Unidad II. Todos los derechos reservados.</p>
-    </div>
-  </footer>
-
-  <script>
-    // Fade‐in seq.
-    document.querySelectorAll('.fade-in').forEach((el,i)=> {
-      setTimeout(()=> el.classList.add('visible'), i*300);
-    });
-  </script>
 </body>
 </html>
