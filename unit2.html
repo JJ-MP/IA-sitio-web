@@ -1,378 +1,288 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unidad II: Aplicaciones de la Inteligencia Artificial</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%233B82F6'/><text x='50' y='65' text-anchor='middle' fill='white' font-size='40' font-weight='bold'>IA</text></svg>" type="image/svg+xml">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
-        /* Animaciones personalizadas */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
-        }
-        @keyframes slideInFromLeft {
-            0% { transform: translateX(-100%); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes fadeInUp {
-            0% { transform: translateY(50px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes backgroundMove {
-            0% { background-position: 0% 0%; }
-            50% { background-position: 100% 100%; }
-            100% { background-position: 0% 0%; }
-        }
-        .animate-float { animation: float 3s ease-in-out infinite; }
-        .animate-glow { animation: glow 2s ease-in-out infinite; }
-        .animate-slide-left { animation: slideInFromLeft 0.8s ease-out; }
-        .animate-fade-up { animation: fadeInUp 0.8s ease-out; }
-        /* Fondo animado */
-        .hero-bg {
-            background: linear-gradient(
-                45deg,
-                #1e3a8a 0%,
-                #3b82f6 25%,
-                #1d4ed8 50%,
-                #2563eb 75%,
-                #1e40af 100%
-            );
-            background-size: 400% 400%;
-            animation: backgroundMove 8s ease infinite;
-            position: relative;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Unidad II: Aplicaciones de la Inteligencia Artificial</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%233B82F6'/><text x='50' y='65' text-anchor='middle' fill='white' font-size='40' font-weight='bold'>IA</text></svg>" type="image/svg+xml"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
 
-        .hero-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            animation: backgroundMove 15s ease infinite reverse;
-            z-index: 0;
-        }
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.3;
-            animation: float 6s ease-in-out infinite;
-            z-index: 1;
-        }
-        .particle:nth-child(2) { 
-            width: 10px; height: 10px; 
-            background: #3B82F6; 
-            left: 10%; top: 20%; 
-            animation-delay: 0s; 
-        }
-        .particle:nth-child(3) { 
-            width: 15px; height: 15px; 
-            background: #1D4ED8; 
-            left: 70%; top: 30%; 
-            animation-delay: 2s; 
-        }
-        .particle:nth-child(4) { 
-            width: 8px; height: 8px; 
-            background: #2563EB; 
-            left: 30%; top: 60%; 
-            animation-delay: 4s; 
-        }
-        .particle:nth-child(5) { 
-            width: 12px; height: 12px; 
-            background: #1E40AF; 
-            left: 80%; top: 70%; 
-            animation-delay: 1s; 
-        }
-        .card-hover {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .card-hover::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.5s ease;
-        }
-        .card-hover:hover::before {
-            left: 100%;
-        }
-        .card-hover:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-        .btn-magic {
-            background: linear-gradient(45deg, #3B82F6, #1D4ED8);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-magic::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-        .btn-magic:hover::before {
-            left: 100%;
-        }
-        .btn-magic:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(59,130,246,0.4);
-        }
-        .logo-ia {
-            font-size: 2rem;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
-            color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-            transition: all 0.3s ease;
-        }
-        .logo-ia:hover {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 8px 25px -5px rgba(59,130,246,0.5);
-        }
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .gradient-text {
-            background: linear-gradient(45deg, #3B82F6, #1D4ED8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-    </style>
+    /* Animaciones */
+    @keyframes float         { 0%,100%{transform:translateY(0);}50%{transform:translateY(-20px);} }
+    @keyframes glow          { 0%,100%{box-shadow:0 0 20px rgba(59,130,246,0.3);}50%{box-shadow:0 0 40px rgba(59,130,246,0.6);} }
+    @keyframes slideInFromLeft { 0%{transform:translateX(-100%);opacity:0;}100%{transform:translateX(0);opacity:1;} }
+    @keyframes fadeInUp      { 0%{transform:translateY(50px);opacity:0;}100%{transform:translateY(0);opacity:1;} }
+    @keyframes backgroundMove{ 0%{background-position:0% 0%;}50%{background-position:100% 100%;}100%{background-position:0% 0%;} }
+
+    /* Helpers de animación */
+    .animate-float       { animation: float 3s ease-in-out infinite; }
+    .animate-glow        { animation: glow 2s ease-in-out infinite; }
+    .animate-slide-left  { animation: slideInFromLeft .8s ease-out; }
+    .animate-fade-up     { animation: fadeInUp .8s ease-out; }
+
+    /* Fondo hero */
+    .hero-bg {
+      background: linear-gradient(
+        45deg,
+        #1e3a8a 0%,
+        #3b82f6 25%,
+        #1d4ed8 50%,
+        #2563eb 75%,
+        #1e40af 100%
+      );
+      background-size: 400% 400%;
+      animation: backgroundMove 8s ease infinite;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+      animation: backgroundMove 15s ease infinite reverse;
+      z-index: 0;
+    }
+
+    /* Partículas */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float 6s ease-in-out infinite;
+      z-index: 1;
+    }
+    .particle:nth-child(2){ width:10px; height:10px; background:#3B82F6; left:10%; top:20%; animation-delay:0;}
+    .particle:nth-child(3){ width:15px; height:15px; background:#1D4ED8; left:70%; top:30%; animation-delay:2s;}
+    .particle:nth-child(4){ width:8px;  height:8px;  background:#2563EB; left:30%; top:60%; animation-delay:4s;}
+    .particle:nth-child(5){ width:12px; height:12px; background:#1E40AF; left:80%; top:70%; animation-delay:1s;}
+
+    /* Tarjetas hover */
+    .card-hover {
+      transition: all .3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .card-hover::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left .5s ease;
+    }
+    .card-hover:hover::before { left: 100%; }
+    .card-hover:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    /* Botón mágico */
+    .btn-magic {
+      background: linear-gradient(45deg, #3B82F6, #1D4ED8);
+      position: relative; overflow: hidden;
+      transition: all .3s ease;
+    }
+    .btn-magic::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left .5s ease;
+    }
+    .btn-magic:hover::before { left: 100%; }
+    .btn-magic:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(59,130,246,0.4);
+    }
+
+    /* Logo IA */
+    .logo-ia {
+      font-size: 2rem; font-weight: bold;
+      width: 60px; height: 60px;
+      background: linear-gradient(135deg,#3B82F6 0%,#1D4ED8 100%);
+      color: white; border-radius: 12px;
+      display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: all .3s ease;
+    }
+    .logo-ia:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 8px 25px rgba(59,130,246,0.5);
+    }
+
+    /* Fade‐in sections */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all .8s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Texto con degradado */
+    .gradient-text {
+      background: linear-gradient(45deg,#3B82F6,#1D4ED8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
-    <!-- Header -->
-    <header class="bg-white shadow-md sticky top-0 z-50 animate-slide-left">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <div class="logo-ia animate-glow">IA</div>
-                <span class="text-xl font-bold text-gray-900">Unidad II</span>
-            </div>
-            <div>
-                <a href="unit3.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-center block w-full md:inline-block md:w-auto">
-                    Siguiente Unidad →
-                </a>
-            </div>
-        </nav>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero-bg text-white relative">
-        <div class="absolute inset-0 bg-black bg-opacity-30 z-0"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="container mx-auto px-6 py-20 text-center relative z-10">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight animate-fade-up">
-                Unidad II: Aplicaciones de la Inteligencia Artificial
-            </h1>
-            <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto animate-fade-up" style="animation-delay: 0.2s;">
-                Reconoce las diversas aplicaciones de la IA en sectores clave como salud, finanzas y entretenimiento.
-            </p>
-            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 max-w-2xl mx-auto animate-fade-up" style="animation-delay: 0.4s;">
-                <h3 class="text-xl font-bold mb-4">Objetivos de Aprendizaje</h3>
-                <ul class="text-left space-y-2">
-                    <li class="flex items-start">
-                        <span class="text-yellow-300 mr-2">✓</span>
-                        Aplicaciones de la IA en medicina, finanzas y entretenimiento
-                    </li>
-                    <li class="flex items-start">
-                        <span class="text-yellow-300 mr-2">✓</span>
-                        Impacto de la IA en la vida cotidiana
-                    </li>
-                    <li class="flex items-start">
-                        <span class="text-yellow-300 mr-2">✓</span>
-                        Ejemplos prácticos de IA en diferentes sectores
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
+  <!-- Header -->
+  <header class="bg-white shadow-md sticky top-0 z-50 animate-slide-left">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <div class="logo-ia animate-glow">IA</div>
+        <span class="text-xl font-bold text-gray-900">Unidad II</span>
+      </div>
+      <a href="unit3.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg">
+        Siguiente Unidad →
+      </a>
+    </nav>
+  </header>
 
-    <!-- Aplicaciones de la IA -->
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-12 fade-in">
-                <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">2.1 Aplicaciones de la IA</h2>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                    Descubre cómo la inteligencia artificial está revolucionando diferentes áreas.
-                </p>
-            </div>
-            <div class="flex flex-col md:flex-row gap-8">
-                <!-- Medicina -->
-                <div class="bg-white p-8 rounded-lg shadow-lg card-hover fade-in">
-                    <div class="text-center mb-6">
-                        <div class="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                            <span class="text-3xl">🏥</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-blue-600 mb-4">IA en Medicina</h3>
-                    </div>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <span class="text-blue-500 mr-2">•</span>
-                            Diagnóstico de enfermedades: La IA ayuda a los médicos a diagnosticar enfermedades de forma más precisa y rápida mediante el análisis de imágenes médicas y datos del paciente.
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-blue-500 mr-2">•</span>
-                            Desarrollo de nuevos medicamentos: La IA ayuda a los investigadores a desarrollar nuevos medicamentos y tratamientos de forma más rápida y eficiente.
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-blue-500 mr-2">•</span>
-                            Cirugía robótica: La IA mejora la precisión y seguridad de las intervenciones quirúrgicas.
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-blue-500 mr-2">•</span>
-                            Atención al paciente: La IA permite una atención más personalizada y eficiente.
-                        </li>
-                    </ul>
-                </div>
-                <!-- Finanzas -->
-                <div class="bg-white p-8 rounded-lg shadow-lg card-hover fade-in">
-                    <div class="text-center mb-6">
-                        <div class="w-16 h-16 mx-auto bg-yellow-100 rounded-full flex items-center justify-center mb-4">
-                            <span class="text-3xl">💰</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-yellow-600 mb-4">IA en Finanzas</h3>
-                    </div>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <span class="text-yellow-500 mr-2">•</span>
-                            Detección de fraude: La IA detecta fraude financiero mediante el análisis de grandes cantidades de datos de transacciones.
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-yellow-500 mr-2">•</span>
-                            Predicción del mercado de valores: La IA predice el comportamiento del mercado y ayuda a los inversores a tomar mejores decisiones.
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-yellow-500 mr-2">•</span>
-                            Gestión de riesgos: La IA gestiona riesgos financieros mediante el análisis de datos y patrones.
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-yellow-500 mr-2">•</span>
-                            Asesoramiento financiero: La IA proporciona asesoramiento personalizado a los clientes.
-                        </li>
-                    </ul>
-                </div>
-                <!-- Entretenimiento -->
-                <div class="bg-white p-8 rounded-lg shadow-lg card-hover fade-in">
-                    <div class="text-center mb-6">
-                        <div class="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-4">
-                            <span class="text-3xl">🎬</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-purple-600 mb-4">IA en Entretenimiento</h3>
-                    </div>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <span class="text-purple-500 mr-2">•</span>
-                            <strong>Recomendaciones personalizadas:</strong> Un gran ejemplo es Netflix, que utiliza inteligencia artificial para analizar tus hábitos de visualización (qué ves, cuándo, cuánto tiempo) para sugerir series y películas mediante el análisis de datos y la identificación de patrones.
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-purple-500 mr-2">•</span>
-                            <strong>Creación de contenido:</strong> La IA puede generar música, guiones y efectos especiales personalizados.
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-purple-500 mr-2">•</span>
-                            <strong>Experiencias interactivas:</strong> Videojuegos con personajes que se adaptan al comportamiento del jugador.
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-purple-500 mr-2">•</span>
-                            <strong>Realidad virtual mejorada:</strong> Experiencias inmersivas más realistas y adaptativas.
-                        </li>
-                    </ul>
-                </div>
-                <!-- Educación -->
-                <div class="bg-white p-8 rounded-lg shadow-lg card-hover fade-in">
-                    <div class="text-center mb-6">
-                        <div class="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-4">
-                            <span class="text-3xl">📚</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-green-600 mb-4">IA en Educación</h3>
-                    </div>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-2">•</span>
-                            <strong>Personalización del aprendizaje:</strong> Adapta el contenido y ritmo de enseñanza según las necesidades individuales de cada estudiante.
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-2">•</span>
-                            <strong>Detección de dificultades:</strong> Identifica problemas de aprendizaje tempranamente para intervenir de manera oportuna.
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-2">•</span>
-                            <strong>Automatización de tareas administrativas:</strong> Libera tiempo para que los educadores se enfoquen en la enseñanza.
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-2">•</span>
-                            <strong>Mejora de resultados:</strong> Proporciona información procesable para optimizar el proceso educativo y fomentar la colaboración.
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Hero Section -->
+  <section class="hero-bg text-white relative">
+    <div class="absolute inset-0 bg-black bg-opacity-30 z-0"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
 
-    <!-- Footer -->
-    <footer class="bg-white py-8">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-2 mb-4">
-                <a href="index.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm md:text-base w-full sm:w-auto text-center">Inicio</a>
-                <a href="unit1.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm md:text-base w-full sm:w-auto text-center">Unidad I</a>
-                <a href="unit2.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm md:text-base w-full sm:w-auto text-center">Unidad II</a>
-                <a href="unit3.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm md:text-base w-full sm:w-auto text-center">Unidad III</a>
-                <a href="unit4.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm md:text-base w-full sm:w-auto text-center">Unidad IV</a>
+    <div class="container mx-auto px-6 py-20 text-center relative z-10">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight animate-fade-up">
+        Unidad II: Aplicaciones de la Inteligencia Artificial
+      </h1>
+      <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto animate-fade-up" style="animation-delay:0.2s;">
+        Reconoce las diversas aplicaciones de la IA en sectores clave como salud, finanzas y entretenimiento.
+      </p>
+      <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 max-w-2xl mx-auto animate-fade-up" style="animation-delay:0.4s;">
+        <h3 class="text-xl font-bold mb-4">Objetivos de Aprendizaje</h3>
+        <ul class="text-left space-y-2">
+          <li class="flex items-start"><span class="text-yellow-300 mr-2">✓</span> IA en medicina, finanzas y entretenimiento</li>
+          <li class="flex items-start"><span class="text-yellow-300 mr-2">✓</span> Impacto de la IA en la vida cotidiana</li>
+          <li class="flex items-start"><span class="text-yellow-300 mr-2">✓</span> Ejemplos prácticos en diferentes sectores</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2.1 Aplicaciones de la IA -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-12 fade-in">
+        <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4" style="color: black;">
+  2.1 Aplicaciones de la IA
+</h2>
+
+        <p class="text-lg text-gray-800 max-w-3xl mx-auto">
+          Descubre cómo la inteligencia artificial está revolucionando diferentes áreas.
+        </p>
+      </div>
+
+      <!-- Grid 2x2 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Medicina -->
+        <div class="bg-white p-8 rounded-lg shadow-lg card-hover fade-in">
+          <div class="text-center mb-6">
+            <div class="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-4">
+              <span class="text-3xl">🏥</span>
             </div>
-            <p class="text-gray-600 text-sm text-center">
-                &copy; 2025 Unidad II. Todos los derechos reservados.
-            </p>
+            <h3 class="text-2xl font-bold text-blue-600 mb-4">IA en Medicina</h3>
+          </div>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start"><span class="text-blue-500 mr-2">•</span> Diagnóstico más preciso y rápido con análisis de imágenes</li>
+            <li class="flex items-start"><span class="text-blue-500 mr-2">•</span> Desarrollo ágil de nuevos medicamentos</li>
+            <li class="flex items-start"><span class="text-blue-500 mr-2">•</span> Cirugía robótica de alta precisión</li>
+            <li class="flex items-start"><span class="text-blue-500 mr-2">•</span> Atención al paciente personalizada</li>
+          </ul>
         </div>
-    </footer>
-    <script>
-        // Efecto de aparición para las secciones
-        document.querySelectorAll('.fade-in').forEach((section, index) => {
-            setTimeout(() => {
-                section.classList.add('visible');
-            }, index * 300);
-        });
-    </script>
+
+        <!-- Finanzas -->
+        <div class="bg-white p-8 rounded-lg shadow-lg card-hover fade-in">
+          <div class="text-center mb-6">
+            <div class="w-16 h-16 mx-auto bg-yellow-100 rounded-full flex items-center justify-center mb-4">
+              <span class="text-3xl">💰</span>
+            </div>
+            <h3 class="text-2xl font-bold text-yellow-600 mb-4">IA en Finanzas</h3>
+          </div>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start"><span class="text-yellow-500 mr-2">•</span> Detección de fraude en tiempo real</li>
+            <li class="flex items-start"><span class="text-yellow-500 mr-2">•</span> Predicción del mercado de valores</li>
+            <li class="flex items-start"><span class="text-yellow-500 mr-2">•</span> Gestión avanzada de riesgos</li>
+            <li class="flex items-start"><span class="text-yellow-500 mr-2">•</span> Asesoramiento financiero personalizado</li>
+          </ul>
+        </div>
+
+        <!-- Entretenimiento -->
+        <div class="bg-white p-8 rounded-lg shadow-lg card-hover fade-in">
+          <div class="text-center mb-6">
+            <div class="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-4">
+              <span class="text-3xl">🎬</span>
+            </div>
+            <h3 class="text-2xl font-bold text-purple-600 mb-4">IA en Entretenimiento</h3>
+          </div>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start"><span class="text-purple-500 mr-2">•</span> Recomendaciones personalizadas (Netflix)</li>
+            <li class="flex items-start"><span class="text-purple-500 mr-2">•</span> Generación de música, guiones y efectos</li>
+            <li class="flex items-start"><span class="text-purple-500 mr-2">•</span> Videojuegos con NPCs adaptativos</li>
+            <li class="flex items-start"><span class="text-purple-500 mr-2">•</span> Realidad virtual inmersiva</li>
+          </ul>
+        </div>
+
+        <!-- Educación -->
+        <div class="bg-white p-8 rounded-lg shadow-lg card-hover fade-in">
+          <div class="text-center mb-6">
+            <div class="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-4">
+              <span class="text-3xl">📚</span>
+            </div>
+            <h3 class="text-2xl font-bold text-green-600 mb-4">IA en Educación</h3>
+          </div>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start"><span class="text-green-500 mr-2">•</span> Personalización del ritmo de aprendizaje</li>
+            <li class="flex items-start"><span class="text-green-500 mr-2">•</span> Detección temprana de dificultades</li>
+            <li class="flex items-start"><span class="text-green-500 mr-2">•</span> Automatización de tareas administrativas</li>
+            <li class="flex items-start"><span class="text-green-500 mr-2">•</span> Mejora continua de resultados</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white py-8">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-2 mb-4">
+        <a href="index.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm sm:w-auto w-full text-center">Inicio</a>
+        <a href="unit1.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm sm:w-auto w-full text-center">Unidad I</a>
+        <a href="unit2.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm sm:w-auto w-full text-center">Unidad II</a>
+        <a href="unit3.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm sm:w-auto w-full text-center">Unidad III</a>
+        <a href="unit4.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm sm:w-auto w-full text-center">Unidad IV</a>
+      </div>
+      <p class="text-gray-600 text-sm text-center">&copy; 2025 Unidad II. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Fade‐in seq.
+    document.querySelectorAll('.fade-in').forEach((el,i)=> {
+      setTimeout(()=> el.classList.add('visible'), i*300);
+    });
+  </script>
 </body>
 </html>

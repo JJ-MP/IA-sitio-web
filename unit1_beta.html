@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad I: Introducción a la Inteligencia Artificial</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%233B82F6'/><text x='50' y='65' text-anchor='middle' fill='white' font-size='40' font-weight='bold'>IA</text></svg>" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Animaciones personalizadas */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
+        }
+        
+        @keyframes slideInFromLeft {
+            0% { transform: translateX(-100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInFromRight {
+            0% { transform: translateX(100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes backgroundMove {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        /* Clases de animación */
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-glow { animation: glow 2s ease-in-out infinite; }
+        .animate-slide-left { animation: slideInFromLeft 0.8s ease-out; }
+        .animate-slide-right { animation: slideInFromRight 0.8s ease-out; }
+        .animate-fade-up { animation: fadeInUp 0.8s ease-out; }
+        .animate-pulse-custom { animation: pulse 2s ease-in-out infinite; }
+        .animate-rotate-slow { animation: rotate 20s linear infinite; }
+        
+        /* Fondo animado */
+        .hero-bg {
+            background: linear-gradient(
+                45deg,
+                #1e3a8a 0%,
+                #3b82f6 25%,
+                #1d4ed8 50%,
+                #2563eb 75%,
+                #1e40af 100%
+            );
+            background-size: 400% 400%;
+            animation: backgroundMove 8s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: backgroundMove 15s ease infinite reverse;
+        }
+        
+        .logo-ia {
+            font-size: 2rem;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+        
+        .logo-ia:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 25px -5px rgba(59, 130, 246, 0.5);
+        }
+        
+        /* Efectos de hover */
+        .card-hover {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .card-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .card-hover:hover::before {
+            left: 100%;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Botón con efectos */
+        .btn-magic {
+            background: linear-gradient(45deg, #3B82F6, #1D4ED8);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-magic::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-magic:hover::before {
+            left: 100%;
+        }
+        
+        .btn-magic:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        /* Partículas flotantes */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .particle:nth-child(1) { 
+            width: 10px; height: 10px; 
+            background: #3B82F6; 
+            left: 10%; top: 20%; 
+            animation-delay: 0s; 
+        }
+        .particle:nth-child(2) { 
+            width: 15px; height: 15px; 
+            background: #1D4ED8; 
+            left: 70%; top: 30%; 
+            animation-delay: 2s; 
+        }
+        .particle:nth-child(3) { 
+            width: 8px; height: 8px; 
+            background: #2563EB; 
+            left: 30%; top: 60%; 
+            animation-delay: 4s; 
+        }
+        .particle:nth-child(4) { 
+            width: 12px; height: 12px; 
+            background: #1E40AF; 
+            left: 80%; top: 70%; 
+            animation-delay: 1s; 
+        }
+        
+        /* Animación de aparición */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Texto con gradiente */
+        .gradient-text {
+            background: linear-gradient(45deg, #3B82F6, #1D4ED8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Iconos rotando */
+        .icon-rotate {
+            transition: transform 0.3s ease;
+        }
+        
+        .icon-rotate:hover {
+            transform: rotate(360deg);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #3B82F6, #1D4ED8);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin: 40px 0;
+            width: 45%;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 55%;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3B82F6;
+            transform: translateY(-50%);
+        }
+        
+        .timeline-item:nth-child(odd)::before {
+            right: -60px;
+        }
+        
+        .timeline-item:nth-child(even)::before {
+            left: -60px;
+        }
+
+        /* Actividad interactiva */
+        .activity-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid #3B82F6;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 20px 0;
+            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 48px rgba(59, 130, 246, 0.15);
+        }
+
+        /* Inputs interactivos */
+        .interactive-input {
+            border: 2px solid #3B82F6;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 8px 0;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        
+        .interactive-input:focus {
+            outline: none;
+            border-color: #1D4ED8;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Predicción game */
+        .prediction-option {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .prediction-option:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+        
+        .prediction-option.selected {
+            border-color: #3B82F6;
+            background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+            color: white;
+        }
+
+        /* Drag and drop */
+        .drag-item {
+            transition: all 0.3s ease;
+        }
+        
+        .drag-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .drop-zone {
+            transition: all 0.3s ease;
+        }
+        
+        .drop-zone.drag-over {
+            background-color: #dbeafe;
+            border-color: #3B82F6;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50 animate-slide-left">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="logo-ia animate-glow">IA</div>
+                <span class="text-xl font-bold text-gray-900">Unidad I</span>
+            </div>
+            <div>
+                <a href="unit2.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-center block w-full md:inline-block md:w-auto">
+                    Siguiente Unidad →
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg text-white relative">
+        <!-- Partículas flotantes -->
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        
+        <div class="container mx-auto px-6 py-20 text-center relative z-10">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight animate-fade-up">
+                Unidad I: Introducción a la Inteligencia Artificial
+            </h1>
+            <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto animate-fade-up" style="animation-delay: 0.2s;">
+                Comprende la definición y evolución de la inteligencia artificial desde sus inicios hasta la actualidad
+            </p>
+            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 max-w-2xl mx-auto animate-fade-up" style="animation-delay: 0.4s;">
+                <h3 class="text-xl font-bold mb-4">Objetivos de Aprendizaje</h3>
+                <ul class="text-left space-y-2">
+                    <li class="flex items-start">
+                        <span class="text-yellow-300 mr-2">✓</span>
+                        Historia de la IA desde sus inicios hasta la actualidad
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-yellow-300 mr-2">✓</span>
+                        Diferencia entre IA débil y fuerte
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-yellow-300 mr-2">✓</span>
+                        Comprensión del aprendizaje automático
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Historia de la IA -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">1.1 Historia de la IA</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    La Inteligencia Artificial tiene su origen en la década de 1950, cuando un grupo de científicos y matemáticos comenzó a explorar el concepto de máquinas que pudiesen pensar y aprender como seres humanos.
+                </p>
+            </div>
+
+            <!-- Timeline (solo fechas, sin iconos) -->
+            <div class="timeline fade-in mt-12 relative">
+                <!-- Línea vertical -->
+                <div class="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-400 to-blue-700 rounded-full z-0" style="transform: translateX(-50%);"></div>
+                
+                <div class="mb-8 flex flex-col items-center relative z-10">
+                    <div class="flex items-center mb-2 z-20" style="position:relative;">
+                        <span class="inline-block bg-blue-500 text-white font-bold px-3 py-1 rounded-full shadow">1950</span>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow card-hover border-l-4 border-blue-500 w-full max-w-xl mx-auto">
+                        <h3 class="text-lg font-bold text-blue-600 mb-2">El Test de Turing</h3>
+                        <p class="text-gray-700">
+                            Alan Turing presenta el famoso «Test de Turing» como una medida de la capacidad de una máquina para exhibir comportamiento inteligente equivalente al de un humano.
+                        </p>
+                    </div>
+                </div>
+                <div class="mb-8 flex flex-col items-center relative z-10">
+                    <div class="flex items-center mb-2 z-20" style="position:relative;">
+                        <span class="inline-block bg-blue-700 text-white font-bold px-3 py-1 rounded-full shadow">1960s-70s</span>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow card-hover border-l-4 border-blue-700 w-full max-w-xl mx-auto">
+                        <h3 class="text-lg font-bold text-blue-700 mb-2">Primeros Algoritmos</h3>
+                        <p class="text-gray-700">
+                            Se crea una serie de algoritmos básicos y sistemas de reglas que permitían a las máquinas resolver problemas específicos.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center relative z-10">
+                    <div class="flex items-center mb-2 z-20" style="position:relative;">
+                        <span class="inline-block bg-indigo-600 text-white font-bold px-3 py-1 rounded-full shadow">Actualidad</span>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow card-hover border-l-4 border-indigo-600 w-full max-w-xl mx-auto">
+                        <h3 class="text-lg font-bold text-indigo-600 mb-2">Transformación Digital</h3>
+                        <p class="text-gray-700">
+                            La IA se encuentra en aplicaciones que van desde la medicina hasta la conducción autónoma, transformando múltiples industrias.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IA Débil vs Fuerte -->
+    <section class="py-20 bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">1.2 IA Débil vs IA Fuerte</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Comprende las diferencias fundamentales entre estos dos tipos de inteligencia artificial.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-lg card-hover fade-in">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-4">IA Débil</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">•</span>
+                            Diseñada para tareas específicas
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">•</span>
+                            No tiene consciencia ni comprensión real
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">•</span>
+                            Funciona con programas definidos
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">•</span>
+                            Inteligencia limitada comparada con la humana
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-lg shadow-lg card-hover fade-in">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-4">
+                            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-purple-600 mb-4">IA Fuerte</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <span class="text-purple-500 mr-2">•</span>
+                            Busca replicar la inteligencia humana completa
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-500 mr-2">•</span>
+                            Podría ser consciente y autónoma
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-500 mr-2">•</span>
+                            Capacidad de experimentar emociones
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-500 mr-2">•</span>
+                            Adaptarse a situaciones nuevas e imprevistas
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cómo Aprenden las Máquinas -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">1.3 ¿Cómo Aprenden las Máquinas?</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Las máquinas aprenden gracias a técnicas llamadas aprendizaje automático. En lugar de programarles instrucciones específicas para cada tarea, se les enseña con muchos datos.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-5 gap-4 mb-12 fade-in">
+                <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-lg text-center card-hover">
+                    <div class="text-3xl mb-2">📊</div>
+                    <h3 class="font-bold">Recolección de Datos</h3>
+                </div>
+                <div class="bg-gradient-to-br from-green-500 to-green-600 text-white p-6 rounded-lg text-center card-hover">
+                    <div class="text-3xl mb-2">🎯</div>
+                    <h3 class="font-bold">Entrenamiento del Modelo</h3>
+                </div>
+                <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white p-6 rounded-lg text-center card-hover">
+                    <div class="text-3xl mb-2">🔄</div>
+                    <h3 class="font-bold">Generalización</h3>
+                </div>
+                <div class="bg-gradient-to-br from-orange-500 to-orange-600 text-white p-6 rounded-lg text-center card-hover">
+                    <div class="text-3xl mb-2">📈</div>
+                    <h3 class="font-bold">Retroalimentación</h3>
+                </div>
+                <div class="bg-gradient-to-br from-red-500 to-red-600 text-white p-6 rounded-lg text-center card-hover">
+                    <div class="text-3xl mb-2">⚡</div>
+                    <h3 class="font-bold">Mejora</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Actividades Interactivas -->
+    <section id="actividades" class="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Actividades Interactivas</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Pon a prueba tus conocimientos con estas actividades dinámicas.
+                </p>
+            </div>
+
+            <!-- Actividad 1: Preguntas Historia -->
+            <div class="activity-card fade-in">
+                <h3 class="text-2xl font-bold text-blue-600 mb-6">📚 Actividad 1: Historia de la IA</h3>
+                <p class="text-gray-700 mb-4">Responde las siguientes preguntas sobre la historia de la IA:</p>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">a) ¿En qué año surge la IA?</label>
+                        <input type="text" id="q1" class="interactive-input w-full" placeholder="Ejemplo: 1956">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">b) ¿Qué ocurrió en la década de los 60 y 70?</label>
+                        <textarea id="q2" class="interactive-input w-full h-24" placeholder="Describe brevemente..."></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">c) ¿Cuál es el campo que mayor auge ha tenido la IA?</label>
+                        <input type="text" id="q3" class="interactive-input w-full" placeholder="Ejemplo: medicina">
+                    </div>
+                </div>
+                
+                <button class="btn-magic text-white font-bold py-3 px-6 rounded-lg mt-6" onclick="checkHistoryAnswers()">
+                    Verificar Respuestas
+                </button>
+                <div id="historyResults" class="mt-4 hidden"></div>
+            </div>
+
+            <!-- Actividad 2: Completar Oraciones -->
+            <div class="activity-card fade-in">
+                <h3 class="text-2xl font-bold text-blue-600 mb-6">✏️ Actividad 2: IA Débil vs Fuerte</h3>
+                <p class="text-gray-700 mb-4">Completa las oraciones arrastrando las palabras correctas desde el banco de palabras a los espacios en blanco:</p>
+                
+                <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                    <h4 class="font-bold mb-2">Banco de palabras:</h4>
+                    <div class="flex flex-wrap gap-2" id="wordBank">
+                        <span class="bg-blue-200 px-3 py-1 rounded-full text-sm cursor-pointer hover:bg-blue-300 drag-item" draggable="true" data-word="limitada">limitada</span>
+                        <span class="bg-blue-200 px-3 py-1 rounded-full text-sm cursor-pointer hover:bg-blue-300 drag-item" draggable="true" data-word="consciente">consciente</span>
+                        <span class="bg-blue-200 px-3 py-1 rounded-full text-sm cursor-pointer hover:bg-blue-300 drag-item" draggable="true" data-word="tareas específicas">tareas específicas</span>
+                        <span class="bg-blue-200 px-3 py-1 rounded-full text-sm cursor-pointer hover:bg-blue-300 drag-item" draggable="true" data-word="inteligencia humana">inteligencia humana</span>
+                        <span class="bg-blue-200 px-3 py-1 rounded-full text-sm cursor-pointer hover:bg-blue-300 drag-item" draggable="true" data-word="emociones">emociones</span>
+                        <span class="bg-blue-200 px-3 py-1 rounded-full text-sm cursor-pointer hover:bg-blue-300 drag-item" draggable="true" data-word="adaptarse">adaptarse</span>
+                        <span class="bg-blue-200 px-3 py-1 rounded-full text-sm cursor-pointer hover:bg-blue-300 drag-item" draggable="true" data-word="programas definidos">programas definidos</span>
+                        <span class="bg-blue-200 px-3 py-1 rounded-full text-sm cursor-pointer hover:bg-blue-300 drag-item" draggable="true" data-word="autónoma">autónoma</span>
+                    </div>
+                </div>
+
+                <div class="space-y-4 mb-6">
+                    <div class="bg-white p-4 rounded-lg border-2 border-dashed border-gray-300">
+                        <p class="mb-2">
+                            La IA débil está diseñada para 
+                            <span class="drop-zone bg-gray-100 px-3 py-1 rounded border-2 border-dashed border-gray-300 inline-block min-w-[120px]" data-answer="tareas específicas"></span>
+                            y tiene una inteligencia 
+                            <span class="drop-zone bg-gray-100 px-3 py-1 rounded border-2 border-dashed border-gray-300 inline-block min-w-[120px]" data-answer="limitada"></span>.
+                        </p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border-2 border-dashed border-gray-300">
+                        <p class="mb-2">
+                            La IA fuerte busca replicar la 
+                            <span class="drop-zone bg-gray-100 px-3 py-1 rounded border-2 border-dashed border-gray-300 inline-block min-w-[120px]" data-answer="inteligencia humana"></span>
+                            completa y podría ser 
+                            <span class="drop-zone bg-gray-100 px-3 py-1 rounded border-2 border-dashed border-gray-300 inline-block min-w-[120px]" data-answer="consciente"></span>.
+                        </p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border-2 border-dashed border-gray-300">
+                        <p class="mb-2">
+                            La IA fuerte podría experimentar 
+                            <span class="drop-zone bg-gray-100 px-3 py-1 rounded border-2 border-dashed border-gray-300 inline-block min-w-[120px]" data-answer="emociones"></span>
+                            y 
+                            <span class="drop-zone bg-gray-100 px-3 py-1 rounded border-2 border-dashed border-gray-300 inline-block min-w-[120px]" data-answer="adaptarse"></span>
+                            a situaciones nuevas.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex justify-center">
+                    <button class="btn-magic text-white font-bold py-3 px-6 rounded-lg" onclick="checkDragDropAnswers()">
+                        Verificar Respuestas
+                    </button>
+                </div>
+                <div id="dragDropResults" class="mt-4 hidden"></div>
+            </div>
+
+            <!-- Actividad 3: Juego de Predicciones -->
+            <div class="activity-card fade-in">
+                <h3 class="text-2xl font-bold text-blue-600 mb-6">🎯 Actividad 3: Juego de Predicciones</h3>
+                <p class="text-gray-700 mb-4">
+                    Mantén una actitud abierta y curiosa para explorar cómo las máquinas pueden aprender y entender el mundo a partir de datos.
+                </p>
+                
+                <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                    <h4 class="font-bold mb-2 text-blue-800">¿Cómo aprenden las máquinas?</h4>
+                    <p class="text-sm text-blue-700">
+                        Las máquinas aprenden gracias a técnicas llamadas aprendizaje automático. En lugar de programarles instrucciones específicas para cada tarea, se les enseña con muchos datos. Funcionan así:
+                    </p>
+                    <div class="mt-2 text-sm text-blue-700">
+                        <strong>Recolección de datos, entrenamiento del modelo, generalización, retroalimentación y mejora</strong>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border-2 border-blue-200 mb-6">
+                    <h4 class="text-xl font-bold text-gray-800 mb-4">📊 Datos de Entrenamiento: Temperaturas y Uso de Paraguas</h4>
+                    
+                    <div class="overflow-x-auto mb-4">
+                        <table class="w-full border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-gradient-to-r from-green-500 to-green-600 text-white">
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Temperaturas (°C)</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Uso paraguas sí/no</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2">25</td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        <select class="w-full p-2 border rounded" id="temp25">
+                                            <option value="">Selecciona...</option>
+                                            <option value="no">No</option>
+                                            <option value="si">Sí</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gray-300 px-4 py-2">18</td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        <select class="w-full p-2 border rounded" id="temp18">
+                                            <option value="">Selecciona...</option>
+                                            <option value="no">No</option>
+                                            <option value="si">Sí</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2">30</td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        <select class="w-full p-2 border rounded" id="temp30">
+                                            <option value="">Selecciona...</option>
+                                            <option value="no">No</option>
+                                            <option value="si">Sí</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gray-300 px-4 py-2">15</td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        <select class="w-full p-2 border rounded" id="temp15">
+                                            <option value="">Selecciona...</option>
+                                            <option value="no">No</option>
+                                            <option value="si">Sí</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2">22</td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        <select class="w-full p-2 border rounded" id="temp22">
+                                            <option value="">Selecciona...</option>
+                                            <option value="no">No</option>
+                                            <option value="si">Sí</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-lg mb-6">
+                    <h4 class="text-lg font-bold text-purple-800 mb-4">🔍 Instrucciones del Juego:</h4>
+                    <ol class="space-y-2 text-gray-700">
+                        <li class="flex items-start">
+                            <span class="text-purple-600 font-bold mr-2">1.</span>
+                            <span><strong>Analiza los datos:</strong> Observa la relación entre las temperaturas y el uso de paraguas</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-600 font-bold mr-2">2.</span>
+                            <span><strong>Crear reglas:</strong> Intenta formular una regla sencilla que prediga cuándo se usará paraguas</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-600 font-bold mr-2">3.</span>
+                            <span><strong>Prueba con otros datos:</strong> Aplica tu regla a nuevos casos</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-600 font-bold mr-2">4.</span>
+                            <span><strong>Compara las predicciones:</strong> Verifica qué tan acertadas fueron tus predicciones</span>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="text-center mb-4">
+                    <button class="btn-magic text-white font-bold py-3 px-6 rounded-lg" onclick="checkPredictions()">
+                        🎯 Verificar Predicciones
+                    </button>
+                </div>
+                
+                <div id="predictionResults" class="mt-4 hidden"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-2 mb-4">
+                <a href="index.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm md:text-base w-full sm:w-auto text-center">Inicio</a>
+                <a href="unit1.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm md:text-base w-full sm:w-auto text-center">Unidad I</a>
+                <a href="unit2.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm md:text-base w-full sm:w-auto text-center">Unidad II</a>
+                <a href="unit3.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm md:text-base w-full sm:w-auto text-center">Unidad III</a>
+                <a href="unit4.html" class="btn-magic text-white font-bold py-2 px-4 rounded-lg text-sm md:text-base w-full sm:w-auto text-center">Unidad IV</a>
+            </div>
+            <p class="text-gray-600 text-sm text-center">
+                &copy; 2025 Unidad I. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Actividad 1: Verificar respuestas de historia de la IA
+        function checkHistoryAnswers() {
+            // Respuestas correctas
+            const correct = [
+                { id: "q1", answer: "1956" },
+                { id: "q2", answer: "se crearon los primeros algoritmos" },
+                { id: "q3", answer: "medicina" }
+            ];
+            let score = 0;
+            let feedback = '<div class="bg-blue-50 p-4 rounded-lg"><h4 class="font-bold mb-2">Resultados:</h4>';
+            correct.forEach((q, i) => {
+                const user = document.getElementById(q.id).value.trim().toLowerCase();
+                if (user.includes(q.answer)) {
+                    score++;
+                    feedback += `<p class="text-green-600">✓ Pregunta ${i + 1}: Correcto</p>`;
+                } else {
+                    feedback += `<p class="text-red-600">✗ Pregunta ${i + 1}: Incorrecto. Respuesta esperada: ${q.answer.charAt(0).toUpperCase() + q.answer.slice(1)}</p>`;
+                }
+            });
+            feedback += `</div>`;
+            
+            document.getElementById("historyResults").classList.remove("hidden");
+            document.getElementById("historyResults").innerHTML = `Respuestas corregidas: ${score} de ${correct.length}` + feedback;
+        }
+
+        // Función para verificar respuestas de la Actividad 2
+        function checkAnswers() {
+            const correctAnswers = {
+                "tareas específicas": true,
+                "limitada": true,
+                "programas definidos": true,
+                "consciente": false,
+                "emociones": false,
+                "adaptarse": false,
+                "inteligencia humana": false,
+                "autónoma": false
+            };
+
+            let score = 0;
+            let total = Object.keys(correctAnswers).length;
+
+            // Verificar respuestas
+            for (let word in correctAnswers) {
+                let element = document.querySelector(`.drag-item[data-word="${word}"]`);
+                if (element) {
+                    if (correctAnswers[word]) {
+                        score++;
+                        element.classList.add("bg-green-100", "border-green-500");
+                        element.classList.remove("bg-red-100", "border-red-500");
+                    } else {
+                        element.classList.add("bg-red-100", "border-red-500");
+                        element.classList.remove("bg-green-100", "border-green-500");
+                    }
+                }
+            }
+
+            // Mostrar resultado
+            setTimeout(() => {
+                alert(`Tu puntuación: ${score} de ${total}`);
+            }, 300);
+        }
+
+        // Función para manejar el arrastre y la soltura en la Actividad 2
+        document.querySelectorAll('.drag-item').forEach(item => {
+            item.addEventListener('dragstart', dragStart);
+        });
+
+        document.querySelectorAll('.drop-zone').forEach(zone => {
+            zone.addEventListener('dragover', dragOver);
+            zone.addEventListener('drop', drop);
+        });
+
+        function dragStart(e) {
+            e.dataTransfer.setData('text/plain', e.target.dataset.word);
+            e.target.classList.add('opacity-50');
+        }
+
+        function dragOver(e) {
+            e.preventDefault();
+        }
+
+        function drop(e) {
+            e.preventDefault();
+            const word = e.dataTransfer.getData('text/plain');
+            const dropZone = e.target.closest('.drop-zone');
+
+            if (dropZone && !dropZone.classList.contains('occupied')) {
+                dropZone.classList.add('occupied');
+                dropZone.innerHTML = `
+                    <span class="text-gray-800 font-semibold">${word}</span>
+                    <button class="text-red-500 hover:text-red-700 text-sm ml-2" onclick="removeWord(this)">✖️</button>
+                `;
+            }
+
+            document.querySelector(`.drag-item[data-word="${word}"]`).classList.add('hidden');
+        }
+
+        function removeWord(button) {
+            const dropZone = button.closest('.drop-zone');
+            const word = dropZone.querySelector('.text-gray-800').innerText;
+
+            dropZone.classList.remove('occupied');
+            dropZone.innerHTML = '';
+
+            document.querySelector(`.drag-item[data-word="${word}"]`).classList.remove('hidden');
+        }
+
+        // Efecto de aparición para las secciones
+        document.querySelectorAll('.fade-in').forEach((section, index) => {
+            setTimeout(() => {
+                section.classList.add('visible');
+            }, index * 300);
+        });
+
+        // Drag and Drop mejorado para Actividad 2
+        let draggedWord = null;
+
+        document.querySelectorAll('.drag-item').forEach(item => {
+            item.addEventListener('dragstart', function (e) {
+                draggedWord = this;
+                setTimeout(() => this.classList.add('opacity-50'), 0);
+            });
+            item.addEventListener('dragend', function () {
+                this.classList.remove('opacity-50');
+            });
+        });
+
+        document.querySelectorAll('.drop-zone').forEach(zone => {
+            zone.addEventListener('dragover', function (e) {
+                e.preventDefault();
+                this.classList.add('drag-over');
+            });
+            zone.addEventListener('dragleave', function () {
+                this.classList.remove('drag-over');
+            });
+            zone.addEventListener('drop', function (e) {
+                e.preventDefault();
+                this.classList.remove('drag-over');
+                if (this.children.length === 0 && draggedWord) {
+                    // Mueve el span al drop-zone
+                    this.appendChild(draggedWord);
+                    this.classList.add('occupied');
+                }
+            });
+        });
+
+        // Permite devolver la palabra al banco si se hace click sobre ella en el drop-zone
+        document.querySelectorAll('.drop-zone').forEach(zone => {
+            zone.addEventListener('click', function (e) {
+                if (e.target.classList.contains('drag-item')) {
+                    document.getElementById('wordBank').appendChild(e.target);
+                    this.classList.remove('occupied');
+                }
+            });
+        });
+
+        // Verificación de respuestas
+        function checkDragDropAnswers() {
+            let correct = 0;
+            let total = document.querySelectorAll('.drop-zone').length;
+            document.querySelectorAll('.drop-zone').forEach(zone => {
+                const word = zone.querySelector('.drag-item') ? zone.querySelector('.drag-item').dataset.word : '';
+                if (word === zone.dataset.answer) {
+                    zone.classList.add('border-green-500', 'bg-green-50');
+                    zone.classList.remove('border-gray-300', 'bg-gray-100', 'border-red-500', 'bg-red-50');
+                    correct++;
+                } else {
+                    zone.classList.add('border-red-500', 'bg-red-50');
+                    zone.classList.remove('border-gray-300', 'bg-gray-100', 'border-green-500', 'bg-green-50');
+                }
+            });
+            const result = document.getElementById('dragDropResults');
+            result.classList.remove('hidden');
+            result.innerHTML = `<div class="p-4 rounded-lg ${correct === total ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'} font-bold text-center">Respuestas correctas: ${correct} de ${total}</div>`;
+        }
+
+        function checkPredictions() {
+            const correctAnswers = {
+                temp25: "no",
+                temp18: "si",
+                temp30: "no",
+                temp15: "si",
+                temp22: "no"
+            };
+            let correct = 0;
+            let total = Object.keys(correctAnswers).length;
+            let feedback = '<div class="bg-blue-50 p-4 rounded-lg"><h4 class="font-bold mb-2 text-blue-800">Resultados del Juego de Predicciones:</h4>';
+            Object.keys(correctAnswers).forEach(tempId => {
+                const userAnswer = document.getElementById(tempId).value;
+                const correctAnswer = correctAnswers[tempId];
+                const temperature = tempId.replace('temp', '');
+                if (userAnswer === correctAnswer) {
+                    correct++;
+                    feedback += `<p class="text-green-600 text-sm">✓ ${temperature}°C: Correcto - ${correctAnswer === 'si' ? 'Sí' : 'No'} usar paraguas</p>`;
+                } else if (userAnswer === '') {
+                    feedback += `<p class="text-orange-600 text-sm">⚠️ ${temperature}°C: Sin respuesta - Respuesta correcta: ${correctAnswer === 'si' ? 'Sí' : 'No'}</p>`;
+                } else {
+                    feedback += `<p class="text-red-600 text-sm">✗ ${temperature}°C: Incorrecto - Respuesta correcta: ${correctAnswer === 'si' ? 'Sí' : 'No'}</p>`;
+                }
+            });
+            feedback += '<div class="mt-4 p-3 bg-yellow-50 rounded border-l-4 border-yellow-400">';
+            feedback += '<h5 class="font-bold text-yellow-800">💡 Patrón Detectado:</h5>';
+            feedback += '<p class="text-sm text-yellow-700">Las máquinas aprenden que a temperaturas bajas (≤20°C) es más probable usar paraguas, mientras que a temperaturas altas (>20°C) es menos probable. Este es un ejemplo simple de cómo la IA encuentra patrones en los datos.</p>';
+            feedback += '</div>';
+            feedback += '</div>';
+            const resultDiv = document.getElementById("predictionResults");
+            resultDiv.classList.remove("hidden");
+            let scoreColor = correct === total ? 'text-green-600' : correct >= total/2 ? 'text-orange-600' : 'text-red-600';
+            let scoreMessage = correct === total ? '¡Excelente! 🎉' : correct >= total/2 ? '¡Bien hecho! 👍' : '¡Sigue intentando! 💪';
+            resultDiv.innerHTML = `
+                <div class="text-center mb-4">
+                    <div class="text-2xl font-bold ${scoreColor}">${scoreMessage}</div>
+                    <div class="text-lg">Predicciones correctas: ${correct} de ${total}</div>
+                </div>
+                ${feedback}
+            `;
+            resultDiv.style.opacity = '0';
+            setTimeout(() => {
+                resultDiv.style.transition = 'opacity 0.5s ease';
+                resultDiv.style.opacity = '1';
+            }, 100);
+        }
+    </script>
+</body>
+</html>
